@@ -14,6 +14,8 @@ Configure the .env file:
 cp .env.example .env
 ```
 
+> Create a new oauth app in frigear -> admin -> oauth and use "http://locahost:3000" as the website url and "http://localhost:3000/auth/frigear" as the login url.
+
 Make sure to install the dependencies:
 
 ```bash
