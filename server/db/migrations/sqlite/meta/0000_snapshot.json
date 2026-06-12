@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "cd7df04f-f543-4564-8845-c56810699ec2",
+  "id": "ce5f8271-1d3a-468e-9729-c540b5e6cde5",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "users": {
@@ -13,6 +13,13 @@
           "primaryKey": true,
           "notNull": true,
           "autoincrement": true
+        },
+        "frigearId": {
+          "name": "frigearId",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
         },
         "name": {
           "name": "name",
@@ -73,6 +80,13 @@
         }
       },
       "indexes": {
+        "users_frigearId_unique": {
+          "name": "users_frigearId_unique",
+          "columns": [
+            "frigearId"
+          ],
+          "isUnique": true
+        },
         "users_email_unique": {
           "name": "users_email_unique",
           "columns": [

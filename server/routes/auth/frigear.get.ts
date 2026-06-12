@@ -7,8 +7,13 @@ export default defineOAuthOidcEventHandler({
   config: {
     scope: ['openid', 'profile', 'email', 'role'],
   },
-  async onSuccess(event, { user: _rawFrigearUser }) {
-    const frigearUser = frigearUserSchema.parse(_rawFrigearUser)
+  async onSuccess(event, { user: _rawFrigearUser, tokens }) {
+    console.log({ _rawFrigearUser, tokens })
+    const { sub: id, ...rest } = _rawFrigearUser
+    const frigearUser = frigearUserSchema.parse({
+      id,
+      ...rest,
+    })
     let user = await db.query.user.findFirst({
       where: (users, { eq }) => eq(users.email, frigearUser.email!),
     })
@@ -16,6 +21,7 @@ export default defineOAuthOidcEventHandler({
     if (!user) {
       [user] = await db.insert(schema.user)
         .values({
+          frigearId: frigearUser.id,
           role: frigearUser.role || 'user',
           name: frigearUser.name,
           email: frigearUser.email,
@@ -39,6 +45,9 @@ export default defineOAuthOidcEventHandler({
 
     await setUserSession(event, {
       user,
+      accessToken: tokens.access_token,
+      refreshToken: tokens.refresh_token,
+      idToken: tokens.id_token,
       loggedInAt: Date.now(),
     })
 
