@@ -1,12 +1,14 @@
 import { db, schema } from '@nuxthub/db'
 import { defineOAuthOidcEventHandler } from '#imports'
 import { eq } from 'drizzle-orm'
+import { frigearUserSchema } from '#shared/schema'
 
 export default defineOAuthOidcEventHandler({
   config: {
     scope: ['openid', 'profile', 'email', 'role'],
   },
-  async onSuccess(event, { user: frigearUser }) {
+  async onSuccess(event, { user: _rawFrigearUser }) {
+    const frigearUser = frigearUserSchema.parse(_rawFrigearUser)
     let user = await db.query.user.findFirst({
       where: (users, { eq }) => eq(users.email, frigearUser.email!),
     })
@@ -14,8 +16,7 @@ export default defineOAuthOidcEventHandler({
     if (!user) {
       [user] = await db.insert(schema.user)
         .values({
-          // @ts-expect-error Somehow not typed :/
-          role: (frigearUser as { role?: string })?.role || 'user',
+          role: frigearUser.role || 'user',
           name: frigearUser.name,
           email: frigearUser.email,
           avatar: frigearUser.picture,
