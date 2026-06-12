@@ -4,7 +4,7 @@
 ## Quick Start
 
 ```bash [Terminal]
-pnpm create nuxt@latest [--] -t gh:Frigear-nu/nuxt-app-template
+pnpm create nuxt@latest -t gh:Frigear-nu/nuxt-app-template <project-name>
 ```
 
 ## Setup
