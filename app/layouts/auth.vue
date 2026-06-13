@@ -1,10 +1,4 @@
 <script setup lang="ts">
-const { clear } = useUserSession()
-
-const onLogout = () => {
-  clear()
-  navigateTo('/')
-}
 </script>
 
 <template>
@@ -18,7 +12,6 @@ const onLogout = () => {
 
       <template #right>
         <UColorModeButton />
-        <AccountMenu />
       </template>
     </UHeader>
 
@@ -27,7 +20,6 @@ const onLogout = () => {
     </UMain>
 
     <USeparator icon="i-simple-icons-nuxtdotjs" />
-
     <AppFooter />
   </div>
 </template>

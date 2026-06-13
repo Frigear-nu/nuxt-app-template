@@ -6,6 +6,7 @@ export default defineNuxtConfig({
     '@nuxthub/core',
     'nuxt-auth-utils',
     '@nuxt/image',
+    '@nuxtjs/device',
   ],
 
   devtools: {
@@ -16,6 +17,7 @@ export default defineNuxtConfig({
 
   routeRules: {
     '/app/**': { appLayout: 'app', appMiddleware: ['auth'] },
+    '/login': { appLayout: 'auth' },
   },
 
   compatibilityDate: '2025-01-15',

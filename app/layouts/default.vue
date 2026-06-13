@@ -20,12 +20,7 @@ const { loggedIn } = useUserSession()
         >
           Login
         </UButton>
-        <UButton
-          v-else
-          to="/app"
-        >
-          Dashboard
-        </UButton>
+        <AccountMenu v-else />
       </template>
     </UHeader>
 
@@ -35,23 +30,6 @@ const { loggedIn } = useUserSession()
 
     <USeparator icon="i-simple-icons-nuxtdotjs" />
 
-    <UFooter>
-      <template #left>
-        <p class="text-sm text-muted">
-          Frigear • © {{ new Date().getFullYear() }}
-        </p>
-      </template>
-
-      <template #right>
-        <UButton
-          to="https://frigear.nu"
-          target="_blank"
-          icon="i-lucide-globe"
-          aria-label="Website"
-          color="neutral"
-          variant="ghost"
-        />
-      </template>
-    </UFooter>
+    <AppFooter />
   </div>
 </template>

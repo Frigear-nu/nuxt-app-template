@@ -21,6 +21,8 @@
     "@nuxt/image": "2.0.0",
     "@nuxt/ui": "^4.8.2",
     "@nuxthub/core": "0.10.7",
+    "@nuxtjs/device": "4.0.0",
+    "@vueuse/core": "^14.3.0",
     "drizzle-kit": "^0.31.10",
     "drizzle-orm": "^0.45.2",
     "nuxt": "^4.4.8",
