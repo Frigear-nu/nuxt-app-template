@@ -12,3 +12,6 @@ export const user = sqliteTable('users', {
   createdAt: integer({ mode: 'timestamp' }).$defaultFn(() => new Date()),
   updatedAt: integer({ mode: 'timestamp' }).$onUpdateFn(() => new Date()),
 })
+
+export type User = typeof user.$inferSelect
+export type UserInsert = typeof user.$inferInsert
