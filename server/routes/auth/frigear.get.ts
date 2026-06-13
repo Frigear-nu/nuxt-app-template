@@ -41,7 +41,7 @@ export default defineOAuthOidcEventHandler({
     await setUserSession(event, {
       user: {
         ...user,
-        lastLoginAt: String(user.lastLoginAt),
+        lastLoginAt: user.lastLoginAt?.toISOString(),
       },
       accessToken: tokens.access_token,
       refreshToken: tokens.refresh_token,
