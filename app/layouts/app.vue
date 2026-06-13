@@ -1,10 +1,5 @@
 <script setup lang="ts">
-const { clear } = useUserSession()
 
-const onLogout = () => {
-  clear()
-  navigateTo('/')
-}
 </script>
 
 <template>
