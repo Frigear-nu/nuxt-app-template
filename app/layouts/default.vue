@@ -7,7 +7,7 @@ const { loggedIn } = useUserSession()
     <UHeader>
       <template #left>
         <NuxtLink to="/">
-          <AppLogo class="w-auto h-6 shrink-0" />
+          <AppLogo />
         </NuxtLink>
       </template>
 
