@@ -9,7 +9,9 @@ const onSignOut = async () => {
   await navigateTo('/')
 }
 
-const getFirstLetter = (name: string) => name.charAt(0)
+const getFirstLetter = (name: string | number) => {
+  return String(typeof name === 'string' ? name.charAt(0)?.toUpperCase() : name)
+}
 
 const items = computedAsync<DropdownMenuItem[][]>(async () => {
   const items: DropdownMenuItem[][] = [
@@ -35,7 +37,7 @@ const items = computedAsync<DropdownMenuItem[][]>(async () => {
         type: 'label',
         label: `${user.value.email || user.value.name || user.value.id}`,
         avatar: {
-          text: getFirstLetter(user.value.email || user.value.name || user.value.id).toUpperCase(),
+          text: getFirstLetter(user.value.email || user.value.name || user.value.id),
         },
       },
     ])

@@ -9,7 +9,7 @@ watch(loggedIn, (value) => {
   }
 }, { immediate: true })
 
-const providers = computed<ButtonProps[]>(() => [{
+const providers = computed<(ButtonProps & { iconDark?: string })[]>(() => [{
   label: 'Frigear SSO',
   icon: '/logo.png',
   iconDark: '/logo-dark.png',
@@ -45,7 +45,7 @@ const providers = computed<ButtonProps[]>(() => [{
               >
                 <UColorModeImage
                   :light="provider.icon"
-                  :dark="provider?.iconDark"
+                  :dark="provider?.iconDark!"
                   class="w-6 h-6"
                 />
               </template>

@@ -1,5 +1,4 @@
 import { db, schema } from '@nuxthub/db'
-import { defineOAuthOidcEventHandler } from '#imports'
 import { eq } from 'drizzle-orm'
 import { frigearUserSchema } from '#shared/schema'
 
