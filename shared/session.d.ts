@@ -3,7 +3,7 @@ import type { UserOpenID } from '#shared/types'
 declare module '#auth-utils' {
   interface User extends UserOpenID {
     id: number
-    frigearId: number
+    frigearId: number | null
     lastLoginAt?: string
   }
   //
