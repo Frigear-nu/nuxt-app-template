@@ -1,6 +1,11 @@
+<script setup lang="ts">
+</script>
+
 <template>
   <UContainer>
     <UPageHeader title="Home" />
-    <UPageSection title="Section" />
+    <UPageBody>
+      <UPageSection title="Section" />
+    </UPageBody>
   </UContainer>
 </template>

@@ -5,6 +5,7 @@ export default defineNuxtConfig({
     '@nuxt/ui',
     '@nuxthub/core',
     'nuxt-auth-utils',
+    '@nuxt/image',
   ],
 
   devtools: {

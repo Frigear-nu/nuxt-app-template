@@ -15,7 +15,7 @@ const { loggedIn } = useUserSession()
         <UColorModeButton />
         <UButton
           v-if="!loggedIn"
-          to="/auth/frigear"
+          to="/login"
           external
         >
           Login
