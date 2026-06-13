@@ -37,6 +37,7 @@ const items = computedAsync<DropdownMenuItem[][]>(async () => {
         type: 'label',
         label: `${user.value.email || user.value.name || user.value.id}`,
         avatar: {
+          src: user.value.avatar || undefined,
           text: getFirstLetter(user.value.email || user.value.name || user.value.id),
         },
       },

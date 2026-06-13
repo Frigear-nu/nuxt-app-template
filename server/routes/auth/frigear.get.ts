@@ -7,7 +7,7 @@ export default defineOAuthOidcEventHandler({
     scope: ['openid', 'profile', 'email', 'role'],
   },
   async onSuccess(event, { user: _rawFrigearUser, tokens }) {
-    const { sub: id, ...rest } = _rawFrigearUser
+    const { sub: id, ...rest } = typeof _rawFrigearUser === 'string' ? JSON.parse(_rawFrigearUser) : _rawFrigearUser
     const frigearUser = frigearUserSchema.parse({ id, ...rest })
     let user = await db.query.user.findFirst({
       where: (users, { eq }) => eq(users.email, frigearUser.email!),
