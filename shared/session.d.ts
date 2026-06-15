@@ -1,7 +1,9 @@
 import type { APIUser } from '#shared/types'
 
 declare module '#auth-utils' {
-  type User = APIUser
+  interface User extends APIUser {
+    id: number
+  }
   //
   interface UserSession {
     accessToken?: string
