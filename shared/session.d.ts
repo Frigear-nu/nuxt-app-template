@@ -1,11 +1,7 @@
-import type { UserOpenID } from '#shared/types'
+import type { APIUser } from '#shared/types'
 
 declare module '#auth-utils' {
-  interface User extends UserOpenID {
-    id: number
-    frigearId: number | null
-    lastLoginAt?: string
-  }
+  type User = APIUser
   //
   interface UserSession {
     accessToken?: string

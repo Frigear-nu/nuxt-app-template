@@ -1,6 +1,7 @@
 import { db, schema } from '@nuxthub/db'
 import { eq } from 'drizzle-orm'
-import { frigearUserSchema } from '#shared/schema'
+import { openIdUserSchema } from '#shared/schema'
+import { mapUserToSession } from '#server/utils/session'
 
 export default defineOAuthOidcEventHandler({
   config: {
@@ -8,9 +9,11 @@ export default defineOAuthOidcEventHandler({
   },
   async onSuccess(event, { user: _rawFrigearUser, tokens }) {
     const { sub: id, ...rest } = typeof _rawFrigearUser === 'string' ? JSON.parse(_rawFrigearUser) : _rawFrigearUser
-    const frigearUser = frigearUserSchema.parse({ id, ...rest })
+    const frigearUser = openIdUserSchema.parse({ id, ...rest })
     let user = await db.query.user.findFirst({
-      where: (users, { eq }) => eq(users.email, frigearUser.email!),
+      where: (users, { eq }) => {
+        return eq(users.frigearId, frigearUser.id)
+      },
     })
 
     if (!user) {
@@ -26,7 +29,11 @@ export default defineOAuthOidcEventHandler({
         .returning()
     } else {
       [user] = await db.update(schema.user)
-        .set({ lastLoginAt: new Date() })
+        .set({
+          email: frigearUser.email,
+          avatar: frigearUser.picture,
+          lastLoginAt: new Date(),
+        })
         .where(eq(schema.user.id, user.id))
         .returning()
     }
@@ -39,10 +46,7 @@ export default defineOAuthOidcEventHandler({
     }
 
     await setUserSession(event, {
-      user: {
-        ...user,
-        lastLoginAt: user.lastLoginAt?.toISOString(),
-      },
+      user: mapUserToSession(user),
       accessToken: tokens.access_token,
       refreshToken: tokens.refresh_token,
       idToken: tokens.id_token,

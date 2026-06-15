@@ -1,6 +1,6 @@
 import { z } from 'zod/v4'
 
-export const frigearUserSchema = z.object({
+export const openIdUserSchema = z.object({
   id: z.coerce.number(),
   name: z.string(),
   email: z.email(),
