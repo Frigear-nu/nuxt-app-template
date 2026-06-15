@@ -2,6 +2,7 @@ import { db, schema } from '@nuxthub/db'
 import { eq } from 'drizzle-orm'
 import { openIdUserSchema } from '#shared/schema'
 import { mapUserToSession } from '#server/utils/session'
+import * as jose from 'jose'
 
 export default defineOAuthOidcEventHandler({
   config: {
@@ -31,6 +32,8 @@ export default defineOAuthOidcEventHandler({
       [user] = await db.update(schema.user)
         .set({
           email: frigearUser.email,
+          name: frigearUser.name,
+          role: frigearUser.role,
           avatar: frigearUser.picture,
           lastLoginAt: new Date(),
         })
@@ -45,11 +48,18 @@ export default defineOAuthOidcEventHandler({
       })
     }
 
+    type FrigearIdToken = { iss: string, sub: string, name: string, role: string, email: string, iat: number, exp: number }
+    let frigearIdToken: FrigearIdToken | undefined
+    if (tokens.id_token) {
+      frigearIdToken = jose.decodeJwt(tokens.id_token) as FrigearIdToken
+    }
+
     await setUserSession(event, {
       user: mapUserToSession(user),
       accessToken: tokens.access_token,
       refreshToken: tokens.refresh_token,
       idToken: tokens.id_token,
+      frigearUrl: frigearIdToken?.iss || null,
       loggedInAt: Date.now(),
     })
 
