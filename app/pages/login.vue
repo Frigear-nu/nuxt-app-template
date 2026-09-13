@@ -1,8 +1,7 @@
 <script lang="ts" setup>
 import type { ButtonProps } from '@nuxt/ui'
 
-const { loggedIn, openInPopup } = useUserSession()
-
+const { loggedIn } = useUserSession()
 watch(loggedIn, (value) => {
   if (value) {
     navigateTo('/app')
@@ -10,10 +9,14 @@ watch(loggedIn, (value) => {
 }, { immediate: true })
 
 const providers = computed<(ButtonProps & { iconDark?: string })[]>(() => [{
-  label: 'Frigear SSO',
+  label: 'Sign in with Frigear.nu',
   icon: '/logo.png',
   iconDark: '/logo-dark.png',
-  onClick: () => openInPopup('/auth/frigear'),
+  onClick: () => {
+    navigateTo('/auth/frigear', { external: true, replace: true })
+    // window.location.replace('/auth/frigear')
+    // openInPopup('/auth/frigear') // this will not work if we use another SSO on the OauthServer...
+  },
 }])
 </script>
 
