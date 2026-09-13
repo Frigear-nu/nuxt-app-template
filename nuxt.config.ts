@@ -20,7 +20,7 @@ export default defineNuxtConfig({
     '/login': { appLayout: 'auth' },
   },
 
-  compatibilityDate: '2025-01-15',
+  compatibilityDate: '2026-08-30',
 
   hub: {
     db: 'sqlite',
