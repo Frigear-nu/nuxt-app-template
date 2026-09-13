@@ -5,3 +5,7 @@ allowBuilds:
   sharp: true
   unrs-resolver: false
   vue-demi: false
+minimumReleaseAgeExclude:
+  - '@iconify-json/lucide@1.2.132'
+  - '@iconify-json/simple-icons@1.2.96'
+  - zod@4.6.4
